@@ -1,4 +1,4 @@
-module github.com/kalradev/GoTorrent
+module github.com/kalradev/gotorrent
 
 go 1.14
 
