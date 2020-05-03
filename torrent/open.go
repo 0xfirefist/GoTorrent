@@ -20,7 +20,7 @@ func Open(path string) *torrent {
 	t := torrent{}
 	err = bencode.Unmarshal(bytes.NewReader(fileContent), &t)
 	if err != nil {
-		log.Fatalln("error - unmarshal")
+		log.Fatalln("error Unmarshalling - %s ", err)
 	}
 
 	return &t
