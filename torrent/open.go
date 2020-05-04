@@ -8,7 +8,7 @@ import (
 	"github.com/jackpal/bencode-go"
 )
 
-func Open(path string) *torrent {
+func Open(path string) *Torrent {
 
 	// file read
 	fileContent, err := ioutil.ReadFile(path)
@@ -17,10 +17,10 @@ func Open(path string) *torrent {
 	}
 
 	// unmarshal
-	t := torrent{}
+	t := Torrent{}
 	err = bencode.Unmarshal(bytes.NewReader(fileContent), &t)
 	if err != nil {
-		log.Fatalln("error Unmarshalling - %s ", err)
+		log.Fatalf("error Unmarshalling - %s ", err)
 	}
 
 	return &t

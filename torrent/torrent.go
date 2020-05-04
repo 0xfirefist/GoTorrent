@@ -3,7 +3,6 @@ package torrent
 import (
 	"bytes"
 	"crypto/sha1"
-	//"fmt"
 	"log"
 	"net/url"
 	"strconv"
@@ -24,12 +23,12 @@ type info struct {
 	Files       []file `bencode:"files,omitempty"`
 }
 
-type torrent struct {
+type Torrent struct {
 	Announce string `bencode:"announce"`
 	Info     info   `bencode:"info"`
 }
 
-func (t *torrent) BuildURL(peerID [20]byte, port uint16) string {
+func (t *Torrent) BuildURL(peerID []byte, port uint16) string {
 
 	u, err := url.Parse(t.Announce)
 	if err != nil {
@@ -51,7 +50,7 @@ func (t *torrent) BuildURL(peerID [20]byte, port uint16) string {
 	return u.String()
 }
 
-func (t *torrent) infohash() []string {
+func (t *Torrent) infohash() []string {
 	return []string{t.Info.hash()}
 }
 
