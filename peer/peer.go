@@ -3,6 +3,7 @@ package peer
 import (
 	"encoding/binary"
 	"net"
+	"strconv"
 )
 
 type Peer struct {
@@ -15,4 +16,11 @@ func NewPeer(b []byte) *Peer {
 		IP:   net.IP(b[0:4]),
 		Port: binary.BigEndian.Uint16(b[4:6]),
 	}
+}
+
+func (p *Peer) Addr() string {
+	ip := p.IP.string()
+	port := strconv.Itoa(p.Port)
+
+	return ip + ":" + port
 }
