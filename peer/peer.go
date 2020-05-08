@@ -19,8 +19,8 @@ func NewPeer(b []byte) *Peer {
 }
 
 func (p *Peer) Addr() string {
-	ip := p.IP.string()
-	port := strconv.Itoa(p.Port)
+	ip := p.IP.String()
+	port := strconv.Itoa(int(p.Port))
 
 	return ip + ":" + port
 }
