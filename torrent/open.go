@@ -17,10 +17,11 @@ func Open(path string) *Torrent {
 	}
 
 	// unmarshal
+	log.Println("Checking file contents")
 	t := Torrent{}
 	err = bencode.Unmarshal(bytes.NewReader(fileContent), &t)
 	if err != nil {
-		log.Fatalf("error Unmarshalling - %s ", err)
+		log.Fatalln("Error getting contents")
 	}
 
 	return &t
