@@ -30,6 +30,7 @@ type Torrent struct {
 
 func (t *Torrent) BuildURL(peerID []byte, port uint16) string {
 
+	log.Println("Building url")
 	u, err := url.Parse(t.Announce)
 	if err != nil {
 		log.Fatalf("There is some problem with URL => %s", err)
@@ -47,10 +48,13 @@ func (t *Torrent) BuildURL(peerID []byte, port uint16) string {
 	}
 
 	u.RawQuery = q.Encode()
+
+	log.Println("URL built")
 	return u.String()
 }
 
 func (t *Torrent) infohash() []string {
+	log.Println("Computing infohash")
 	return []string{t.Info.hash()}
 }
 
@@ -58,7 +62,7 @@ func (i *info) hash() string {
 	var buf bytes.Buffer
 	err := bencode.Marshal(&buf, *i)
 	if err != nil {
-		log.Fatalf("Not able to compute infohash => %s", err)
+		log.Fatalln("Not able to compute infohash")
 	}
 	h := sha1.Sum(buf.Bytes())
 	return string(h[:])
