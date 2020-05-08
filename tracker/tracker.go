@@ -14,6 +14,9 @@ type TrackerResponse struct {
 }
 
 func GetResponse(url string) *TrackerResponse {
+
+	log.Println("Getting peer details from server")
+
 	c := &http.Client{Timeout: 15 * time.Second}
 	resp, err := c.Get(url)
 	if err != nil {
