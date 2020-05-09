@@ -28,7 +28,7 @@ type Torrent struct {
 	Info     info   `bencode:"info"`
 }
 
-func (t *Torrent) BuildURL(peerID []byte, port uint16) string {
+func (t *Torrent) BuildURL(peerID [20]byte, port uint16) string {
 
 	log.Println("Building url")
 	u, err := url.Parse(t.Announce)
@@ -38,7 +38,7 @@ func (t *Torrent) BuildURL(peerID []byte, port uint16) string {
 
 	// setting query parameters
 	q := url.Values{
-		"info_hash":  t.infohash(),
+		"info_hash":  []string{t.Infohash()},
 		"peer_id":    []string{string(peerID[:])},
 		"port":       []string{strconv.Itoa(int(port))},
 		"uploaded":   []string{"0"},
@@ -53,9 +53,9 @@ func (t *Torrent) BuildURL(peerID []byte, port uint16) string {
 	return u.String()
 }
 
-func (t *Torrent) infohash() []string {
+func (t *Torrent) Infohash() string {
 	log.Println("Computing infohash")
-	return []string{t.Info.hash()}
+	return t.Info.hash()
 }
 
 func (i *info) hash() string {
